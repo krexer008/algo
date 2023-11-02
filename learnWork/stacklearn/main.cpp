@@ -6,8 +6,8 @@ struct Stack
     std::string name;
     struct Stack *next;
 };
-/*
-void sozdDob(std::string &rname, )
+
+void sozdDob(struct Stack *top, struct Stack *kon, std::string &rname)
 {
     bool b = true;
     while (b)
@@ -24,6 +24,7 @@ void sozdDob(std::string &rname, )
     }
 };
 
+/*
 void udal()
 {
     if (top == null)
@@ -59,43 +60,55 @@ void pech()
 */
 int main()
 {
-    struct Stack *top, *kon;
+    struct Stack *top;
+    struct Stack *kon;
     std::string rname;
     bool b;
+    std::string nn;
     int n;
 
-    std::system("clear");
     top = nullptr;
     b = true;
     while (b)
     {
+        system("cls");
         std::cout << " Change mode" << std::endl;
         std::cout << " 1 - add to stck" << std::endl;
         std::cout << " 2 - del from stck" << std::endl;
         std::cout << " 3 - print to screen" << std::endl;
         std::cout << " 4 - end" << std::endl;
-        std::cin >> n;
-        switch (n)
+        std::cin >> nn;
+
+        if ((nn.length() == 1) && (nn[0] > '0' && nn[0] < '5'))
         {
-        case 1:
-            //sozdDob();
-            std::cout << " 1 - sozdDob()" << std::endl;
-            break;
-        case 2:
-            //udal();
-            std::cout << " 2 - udal()" << std::endl;
-            break;
-        case 3:
-            //pech();
-            std::cout << " 3 - pech()" << std::endl;
-            break;
-        case 4:
-            b = false;
-            std::cout << " 4 - b = false" << std::endl;
-            break;
-        default:
-            n = 0;
-            break;
+            n = atoi(&nn[0]);
+            switch (n)
+            {
+            case 1:
+                sozdDob();
+                std::cout << " 1 - sozdDob()" << std::endl;
+                break;
+            case 2:
+                //udal();
+                std::cout << " 2 - udal()" << std::endl;
+                break;
+            case 3:
+                //pech();
+                std::cout << " 3 - pech()" << std::endl;
+                break;
+            case 4:
+                b = false;
+                std::cout << " 4 - b = false" << std::endl;
+                break;
+            default:
+                n = 0;
+                break;
+            }
         }
+        else
+        {
+            std::cout << " enter correct number pls" << std::endl;
+        }
+        system("pause");
     }
 }
