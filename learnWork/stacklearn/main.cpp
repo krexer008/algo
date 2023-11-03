@@ -106,7 +106,7 @@ int main()
             case 2:
                 //udal();
                 //std::cout << " 2 - udal()" << std::endl;
-                if (top == nullptr)
+                if (top == 0)
                 {
                     std::cout << "del from empty stsck" << std::endl;
                 }
@@ -120,8 +120,9 @@ int main()
             case 3:
                 //pech();
                 //std::cout << " 3 - pech()" << std::endl;
-                if (top = nullptr)
+                if (top = 0)
                 {
+                    std::cout << top << std::endl;
                     std::cout << "Stack is empty" << std::endl;
                 }
                 else
