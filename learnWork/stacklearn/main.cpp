@@ -60,15 +60,16 @@ void pech()
 */
 int main()
 {
-    struct Stack *top;
-    Stack stack;
-    struct Stack *kon = &stack;
+    Stack stack1;
+    Stack stack2;
+    struct Stack *top; //= &stack2;
+    struct Stack *kon = &stack1;
     std::string rname;
-    bool b;
+    bool b = true;
+    bool b1 = true;
     std::string nn;
     int n;
-    top = nullptr;
-    b = true;
+    top = NULL;
     while (b)
     {
         system("cls");
@@ -88,25 +89,27 @@ int main()
                 //sozdDob();
                 //std::cout << " 1 - sozdDob()" << std::endl;
                 //
-                b = true;
-                while (b)
+                b1 = true;
+                while (b1)
                 {
                     std::cout << "enter next elem" << std::endl;
                     std::cin >> rname;
-                    b = (rname != "end");
-                    if (b)
+                    if (rname == "end")
+                    {
+                        b1 = false;
+                    }
+                    else
                     {
                         (*kon).name = rname;
                         (*kon).next = top;
                         top = kon;
                     };
                 };
-                b = true;
                 break;
             case 2:
                 //udal();
                 //std::cout << " 2 - udal()" << std::endl;
-                if (top == 0)
+                if (top == NULL)
                 {
                     std::cout << "del from empty stsck" << std::endl;
                 }
@@ -114,22 +117,21 @@ int main()
                 {
                     kon = top;
                     top = (*top).next;
-                    kon = nullptr;
+                    kon = NULL;
                 }
                 break;
             case 3:
                 //pech();
                 //std::cout << " 3 - pech()" << std::endl;
-                if (top = 0)
+                if (top == NULL)
                 {
-                    std::cout << top << std::endl;
                     std::cout << "Stack is empty" << std::endl;
                 }
                 else
                 {
                     kon = top;
                     std::cout << "Stack condition" << std::endl;
-                    while (kon != nullptr)
+                    while (!(kon == NULL))
                     {
                         std::cout << (*kon).name << std::endl;
                         kon = (*kon).next;
@@ -141,7 +143,6 @@ int main()
                 std::cout << " 4 - b = false" << std::endl;
                 break;
             default:
-                n = 0;
                 break;
             }
         }
