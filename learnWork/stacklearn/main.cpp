@@ -1,75 +1,69 @@
+#include <string.h> // for strcpy_s
 #include <iostream>
-#include <stdlib.h>
+#include <stdio.h>
 
 struct Stack
 {
     std::string name;
     struct Stack *next;
 };
-/*
-void sozdDob(struct Stack *top, struct Stack *kon, std::string &rname)
+
+Stack *top = NULL;
+
+Stack *push()
 {
+    std::cout << "1 - push(top)" << std::endl;
     bool b = true;
+    Stack *ptr = new Stack;
+
+    std::string rname;
+
     while (b)
     {
-        std::cout << "enter next elem";
+        std::cout << "enter next elem" << std::endl;
         std::cin >> rname;
-        b = (rname != "end");
-        if (b)
+        if (rname == "end")
         {
-            kon.next = top;
-            kon.name = rname;
-            top = kon;
+            b = false;
         }
-    }
-};
-
-/*
-void udal()
-{
-    if (top == null)
-    {
-        std::cout << "del from empty stsck" << std::endl;
-    }
-    else
-    {
-        kon = top;
-        top = top.next;
-        // dispose (kon)
-    }
-};
-
-void pech()
-{
-    if (top = null)
-    {
-        std::cout << "Stack is empty" << std::endl;
-    }
-    else
-    {
-        kon = top;
-        std::cout << "Stack condition" << std::endl;
-
-        while (kon != null)
+        else
         {
-            std::cout << kon.name << std::endl;
-            kon = kon.next;
-        }
+            ptr->name = rname;
+            ptr->next = top;
+
+            top = ptr;
+        };
+    };
+    return ptr;
+};
+
+void pop()
+{
+    if (top == NULL)
+        return;
+    Stack *ptr = top->next; // запоминаем указатель на следующий объект
+    std::cout << "Stack ";
+    std::cout << top->name << " is deleted \n";
+
+    delete top; // удаляем верхний объект стека
+    top = ptr;  // перемещаем указатель top вниз на следующий объект
+};
+
+void show()
+{
+    Stack *c = top;
+    while (c != NULL)
+    {
+        std::cout << c->name << " " << std::endl; // вывод текущего объекта
+        c = c->next;                              // пер
     }
 };
-*/
+
 int main()
 {
-    Stack stack1;
-    Stack stack2;
-    struct Stack *top; //= &stack2;
-    struct Stack *kon = &stack1;
-    std::string rname;
     bool b = true;
-    bool b1 = true;
     std::string nn;
-    int n;
-    top = NULL;
+
     while (b)
     {
         system("cls");
@@ -82,61 +76,19 @@ int main()
 
         if ((nn.length() == 1) && (nn[0] > '0' && nn[0] < '5'))
         {
-            n = atoi(&nn[0]);
+            int n = atoi(&nn[0]);
             switch (n)
             {
             case 1:
-                //sozdDob();
-                //std::cout << " 1 - sozdDob()" << std::endl;
-                //
-                b1 = true;
-                while (b1)
-                {
-                    std::cout << "enter next elem" << std::endl;
-                    std::cin >> rname;
-                    if (rname == "end")
-                    {
-                        b1 = false;
-                    }
-                    else
-                    {
-                        (*kon).name = rname;
-                        (*kon).next = top;
-                        top = kon;
-                    };
-                };
+
+                push();
                 break;
             case 2:
-                //udal();
-                //std::cout << " 2 - udal()" << std::endl;
-                if (top == NULL)
-                {
-                    std::cout << "del from empty stsck" << std::endl;
-                }
-                else
-                {
-                    kon = top;
-                    top = (*top).next;
-                    kon = NULL;
-                }
+                while (top != NULL)
+                    pop();
                 break;
             case 3:
-                //pech();
-                //std::cout << " 3 - pech()" << std::endl;
-                if (top == NULL)
-                {
-                    std::cout << "Stack is empty" << std::endl;
-                }
-                else
-                {
-                    kon = top;
-                    std::cout << "Stack condition" << std::endl;
-                    while (!(kon == NULL))
-                    {
-                        std::cout << (*kon).name << std::endl;
-                        kon = (*kon).next;
-                    }
-                };
+                show();
                 break;
             case 4:
                 b = false;
