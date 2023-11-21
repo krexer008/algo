@@ -21,16 +21,35 @@ bool isEmpty(Queue *Q);  // проверка очереди на пустоту
 int top(Queue *Q);       // вывод начального элемента
 void add(Queue *Q);      // добавление элемента
 void deleteEl(Queue *Q); // удаление элемента
-void clearQ(Queue &Q);   // очистка очереди
+void clearQ(Queue *Q);   // очистка очереди
 int sizeQ(Queue *Q);     // размер очереди
-void outputQ(Queue *Q);  // печать очереди
+void showQ(Queue *Q);    // печать очереди
+
+
+struct St
+{
+    Queue Q;
+    St *next;
+};
+
+void push(St *&p, int elem);
+void pop(St *&p);
+void show(St *p);
+void clear(St *p);
 
 int main()
 {
 
     system("cls");
     Queue Q;
-    creation(&Q);
+
+
+
+
+
+
+
+    creation(&Q); // создание очереди
     int answer = 1;
 
     while (answer != 7)
@@ -41,60 +60,60 @@ int main()
         printf("\n3 Show Queue Elements");
         printf("\n4 Queue size");
         printf("\n5 Delete from Queue");
-        printf("\n6 Delete all elements from Queue"); // доделать
+        printf("\n6 Clear Queue"); // доделать
         printf("\n7 End");
         printf("\n Enter your change: ");
         cin >> answer;
         switch (answer)
         {
-        case 1:
+        case 1: // добавление элемента
             add(&Q);
             break;
-        case 2:
+        case 2: // вывод начального элемента
             if (isEmpty(&Q))
-                cout << endl
-                     << "Queue is empty";
+                cout << "\nQueue is empty\n";
             else
             {
-                cout << "\n First Element: " << top(&Q) << "\n\n";
+                cout << "\n First Element: " << top(&Q) << "\n";
             }
-            system("pause");
             break;
-        case 3:
+        case 3: // печать всей очереди
             if (isEmpty(&Q))
-                cout << endl
-                     << "Queue is empty";
+                cout << "\nQueue is empty\n";
             else
-                outputQ(&Q);
-            system("pause");
+                showQ(&Q);
             break;
-        case 4:
+        case 4: // размер очереди
             if (isEmpty(&Q))
-                cout << endl
-                     << "Queue is empty";
+                cout << "\nQueue is empty\n";
             else
-                cout << "\nQueue size: " << sizeQ(&Q) << "\n\n";
-            system("pause");
+                cout << "\nQueue size: " << sizeQ(&Q) << "\n";
             break;
-        case 5:
+        case 5: // удаление элемента
             if (isEmpty(&Q))
-                cout << endl
-                     << "Queue is empty";
+                cout << "\nQueue is empty\n";
             else
                 deleteEl(&Q);
+            cout << "\nElement deleted\n";
             break;
-        case 6: // Delete all elements
-            clearQ(&Q);
+        case 6: // очистка очереди
+            if (isEmpty(&Q))
+                cout << "\nQueue is empty\n";
+            else
+            {
+                clearQ(&Q);
+                cout << "\nQueue cleared\n";
+            }
             break;
         case 7:
             break;
         default:
-            cout << endl
-                 << "Command not changed\n\n";
-            system("pause");
+            cout << "\nCommand not changed\n";
             break;
         }
+        system("pause");
     }
+    cout << "\nProgram is end\n";
     return 0;
 }
 
@@ -129,33 +148,38 @@ void add(Queue *Q) // добавление элемента
     Q->last->data = value; // добавление элемента в конец
     Q->last->next == NULL; // обнуление указателя на следующий элемент
     Q->size++;
-    cout << "\nValue is planted\n\n";
+    cout << "\nValue is planted\n";
 };
 
 void deleteEl(Queue *Q) // удаление элемента
 {
     Q->first = Q->first->next; // смещение указателя
     Q->size--;
-    cout << "\nElement deleted\n\n";
 };
 
-void clearQ(Queue &Q) // очистка очереди
-    {};
+void clearQ(Queue *Q) // очистка очереди
+{
+    while (Q->size > 0)
+        deleteEl(Q);
+};
 
 int sizeQ(Queue *Q) // размер очереди
 {
     return Q->size;
 }
 
-void outputQ(Queue *Q) // выдача элементов очереди
+void showQ(Queue *Q) // выдача элементов очереди
 {
-    Queue *temp = Q;
-    int siz = sizeQ(Q);
-    while (temp->last != 0)
+    Queue *temp = new Queue();
+    temp->first = Q->first;
+    temp->last = Q->last;
+    temp->size = Q->size;
+    while (temp->size > 0)
     {
         cout << top(temp);
+        temp->size--; // = temp->size - 1;
         temp->first = temp->first->next;
     }
-
-    cout << "\n";
+    cout << "\n END\n";
+    delete (temp);
 }
