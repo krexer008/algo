@@ -24,7 +24,7 @@ int main()
         printf("\n1 Push to stck");
         printf("\n2 Delete from stck");
         printf("\n3 Print all stck");
-        printf("\n4 Push to stck");
+        printf("\n4 Clear all stck");
         printf("\n5 End");
         printf("\n Enter your change: ");
         cin >> answer;
@@ -58,16 +58,15 @@ int main()
                 printf("Stack is empty\n");
             }
             break;
-        case 4:
+        case 4: // Очистка стека
             if (top)
-                if (top)
-                {
-                    clear(top);
-                }
-                else
-                {
-                    printf("Stack is empty\n");
-                }
+            {
+                clear(top);
+            }
+            else
+            {
+                printf("Stack is empty\n");
+            }
             top = 0;
             break;
         case 5:
