@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 using namespace std;
 
 // узел очереди
@@ -8,120 +10,197 @@ struct Node
     Node *next; // след.элемент
 };
 
-// указатели на начало и конец очереди
-struct Queue
+struct St
 {
+    string name;
     int size;    // счетчик размера очереди
     Node *first; // указатель на начало
     Node *last;  // указатель на конец очереди
+    St *next;
 };
 
-void creation(Queue *Q); // создание очереди
-bool isEmpty(Queue *Q);  // проверка очереди на пустоту
-int top(Queue *Q);       // вывод начального элемента
-void add(Queue *Q);      // добавление элемента
-void deleteEl(Queue *Q); // удаление элемента
-void clearQ(Queue *Q);   // очистка очереди
-int sizeQ(Queue *Q);     // размер очереди
-void showQ(Queue *Q);    // печать очереди
+void push(St *&p, string name); // добавление очереди в стек
+void pop(St *&p);               // удаление очереди из стека
+void show(St *p);               // вывод всего стека
+void clearSt(St *p);            // очистка всего стека
+
+void deleteEl(St *p); // удаление элемента из очереди
+void clearQ(St *p);   // очистка очереди
+bool isEmpty(St *p);  // проверка очереди на пустоту
+void showQ(St *Q);    // вывод всей очереди
+int top(St *Q);       // получение начального элемента очереди
+void add(St *Q);      // добавление в очередь
+int sizeQ(St *Q);     // получение размера очереди
+
+void queuMenu(St *p); // menu очереди
 
 int main()
 {
-
     system("cls");
-    Queue Q;
+    St *top = 0;
 
-    creation(&Q); // создание очереди
     int answer = 1;
+    string name = "S";
+    int nameId = 0;
+    string queName = "";
 
-    while (answer != 7)
+    while (answer != 6)
     {
-        system("cls");
-        printf("\n1 Add to Queue");
-        printf("\n2 Show Queue first Element");
-        printf("\n3 Show Queue Elements");
-        printf("\n4 Queue size");
-        printf("\n5 Delete from Queue");
-        printf("\n6 Clear Queue"); // доделать
-        printf("\n7 End");
+        printf("\n1 Push New Queue to stck");
+        printf("\n2 Delete Queue from stck");
+        printf("\n3 Print all stck");
+        printf("\n4 Clear all stck");
+        printf("\n5 Queue menu");
+        printf("\n6 End");
         printf("\n Enter your change: ");
         cin >> answer;
+
         switch (answer)
         {
-        case 1: // добавление элемента
-            add(&Q);
+        case 1: // Добавить очередь в стек
+            printf("New Queue inputed to stack\n");
+            queName = name + to_string(++nameId);
+            push(top, queName);
             break;
-        case 2: // вывод начального элемента
-            if (isEmpty(&Q))
-                cout << "\nQueue is empty\n";
+        case 2: // Удалить очередь из стека
+            if (top)
+            {
+                nameId--;
+                pop(top);
+            }
             else
             {
-                cout << "\n First Element: " << top(&Q) << "\n";
+                printf("- Stack is empty\n");
             }
             break;
-        case 3: // печать всей очереди
-            if (isEmpty(&Q))
-                cout << "\nQueue is empty\n";
-            else
-                showQ(&Q);
-            break;
-        case 4: // размер очереди
-            if (isEmpty(&Q))
-                cout << "\nQueue is empty\n";
-            else
-                cout << "\nQueue size: " << sizeQ(&Q) << "\n";
-            break;
-        case 5: // удаление элемента
-            if (isEmpty(&Q))
-                cout << "\nQueue is empty\n";
-            else
-                deleteEl(&Q);
-            cout << "\nElement deleted\n";
-            break;
-        case 6: // очистка очереди
-            if (isEmpty(&Q))
-                cout << "\nQueue is empty\n";
+        case 3: // Показать все элементы стека
+            if (top)
+            {
+                printf("Show all stack\n");
+                show(top);
+            }
             else
             {
-                clearQ(&Q);
-                cout << "\nQueue cleared\n";
+                printf("- Stack is empty\n");
             }
             break;
-        case 7:
-            clearQ(&Q);
+        case 4: // Очистить стек
+            if (top)
+            {
+                nameId = 0;
+                clearSt(top);
+            }
+            else
+            {
+                printf("- Stack is empty\n");
+            }
+            top = 0;
+            break;
+        case 5:
+            if (top)
+                queuMenu(top);
+            else
+                cout << "Queue is not exist" << endl;
+            break;
+        case 6: // Выход
+            clearSt(top);
+            top = 0;
             break;
         default:
-            cout << "\nCommand not changed\n";
+            printf("\n- Enter correct change");
             break;
         }
-        system("pause");
     }
-    cout << "\nProgram is end\n";
     return 0;
-}
-
-void creation(Queue *Q) // создание очереди
-{
-    Q->first = new Node;
-    Q->first->next = NULL;
-    Q->last = Q->first;
-    Q->size = 0;
 };
 
-bool isEmpty(Queue *Q) // проверка очереди на пустоту
+void push(St *&p, string name) // создание очереди в стеке
 {
-    if (Q->first == Q->last)
+    St *t = new St;
+    t->first = new Node;
+    t->first->next = NULL;
+    t->last = t->first;
+    t->size = 0;
+    t->name = name;
+    t->next = p;
+    p = t;
+};
+
+void pop(St *&p) // удаление очереди из стека
+{
+    St *t = p;
+    p = p->next;
+    if (!(isEmpty(t)))
+    {
+        clearQ(t);
+    };
+    delete t;
+};
+
+bool isEmpty(St *p) // проверка очереди на пустоту
+{
+    if (p->first == p->last)
         return true;
     else
         return false;
 };
 
-int top(Queue *Q) // вывод начального элемента
+void deleteEl(St *p) // удаление элемента из очереди
+{
+    Node *t = p->first;
+    p->first = p->first->next; // смещение указателя
+    p->size--;
+    delete (t);
+};
+
+void clearQ(St *p) // очистка очереди
+{
+    while (p->size > 0)
+        deleteEl(p);
+};
+
+void show(St *p) // Вывод всего стека
+{
+    St *t = p;
+    while (t)
+    {
+        cout << t->name << " : ";
+        showQ(t);
+        cout << endl;
+        t = t->next;
+    }
+    printf("\n");
+};
+
+void showQ(St *Q) // выдача элементов очереди
+{
+    if (!(isEmpty(Q)))
+    {
+        St *temp = new St();
+        temp->first = Q->first;
+        temp->last = Q->last;
+        temp->size = Q->size;
+        while (temp->size > 0)
+        {
+            cout << top(temp);
+            temp->size--;
+            temp->first = temp->first->next;
+            if (temp->size > 0)
+                cout << "; ";
+        }
+        cout << " END";
+        delete (temp);
+    }
+    else
+        cout << "empty Queue!";
+};
+
+int top(St *Q) // вывод начального элемента
 {
     return Q->first->next->data;
 };
 
-void add(Queue *Q) // добавление элемента
+void add(St *Q) // добавление элемента
 {
     int value;
     cout << "\nValue: ";
@@ -131,38 +210,88 @@ void add(Queue *Q) // добавление элемента
     Q->last->data = value; // добавление элемента в конец
     Q->last->next == NULL; // обнуление указателя на следующий элемент
     Q->size++;
-    cout << "\nValue is planted\n";
+    cout << "\nValue is planted to Queue\n";
 };
 
-void deleteEl(Queue *Q) // удаление элемента
-{
-    Q->first = Q->first->next; // смещение указателя
-    Q->size--;
-};
-
-void clearQ(Queue *Q) // очистка очереди
-{
-    while (Q->size > 0)
-        deleteEl(Q);
-};
-
-int sizeQ(Queue *Q) // размер очереди
+int sizeQ(St *Q) // размер очереди
 {
     return Q->size;
+};
+
+void clearSt(St *p) // очистка всего стека
+{
+    while (p)
+    {
+        St *t = p;
+        p = p->next;
+        delete t;
+    }
 }
 
-void showQ(Queue *Q) // выдача элементов очереди
+void queuMenu(St *p) // работа с очередью
 {
-    Queue *temp = new Queue();
-    temp->first = Q->first;
-    temp->last = Q->last;
-    temp->size = Q->size;
-    while (temp->size > 0)
+    int answer = 1;
+    while (answer != 7)
     {
-        cout << top(temp);
-        temp->size--; // = temp->size - 1;
-        temp->first = temp->first->next;
+        system("cls");
+        printf("\n1 Add to Queue");
+        printf("\n2 Show Queue first Element");
+        printf("\n3 Show Queue Elements");
+        printf("\n4 Queue size");
+        printf("\n5 Delete from Queue");
+        printf("\n6 Clear Queue");
+        printf("\n7 End");
+        printf("\n Enter your change: ");
+        cin >> answer;
+        switch (answer)
+        {
+        case 1: // добавление элемента
+            add(p);
+            break;
+        case 2: // вывод начального элемента
+            if (isEmpty(p))
+                cout << "\nQueue is empty\n";
+            else
+            {
+                cout << "\n First Element: " << top(p) << "\n";
+            }
+            break;
+        case 3: // печать всей очереди
+            if (isEmpty(p))
+                cout << "\nQueue is empty\n";
+            else
+                showQ(p);
+            cout << endl;
+            break;
+        case 4: // размер очереди
+            if (isEmpty(p))
+                cout << "\nQueue is empty\n";
+            else
+                cout << "\nQueue size: " << sizeQ(p) << "\n";
+            break;
+        case 5: // удаление элемента
+            if (isEmpty(p))
+                cout << "\nQueue is empty\n";
+            else
+                deleteEl(p);
+            cout << "\nElement deleted\n";
+            break;
+        case 6: // очистка очереди
+            if (isEmpty(p))
+                cout << "\nQueue is empty\n";
+            else
+            {
+                clearQ(p);
+                cout << "\nQueue cleared\n";
+            }
+            break;
+        case 7:
+            break;
+        default:
+            cout << "\nCommand not changed\n";
+            break;
+        }
+        system("pause");
     }
-    cout << "\n END\n";
-    delete (temp);
-}
+    cout << "\nProgram is end\n";
+};
