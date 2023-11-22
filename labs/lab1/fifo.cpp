@@ -25,29 +25,11 @@ void clearQ(Queue *Q);   // очистка очереди
 int sizeQ(Queue *Q);     // размер очереди
 void showQ(Queue *Q);    // печать очереди
 
-
-struct St
-{
-    Queue Q;
-    St *next;
-};
-
-void push(St *&p, int elem);
-void pop(St *&p);
-void show(St *p);
-void clear(St *p);
-
 int main()
 {
 
     system("cls");
     Queue Q;
-
-
-
-
-
-
 
     creation(&Q); // создание очереди
     int answer = 1;
@@ -106,6 +88,7 @@ int main()
             }
             break;
         case 7:
+            clearQ(&Q);
             break;
         default:
             cout << "\nCommand not changed\n";

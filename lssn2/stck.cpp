@@ -23,7 +23,7 @@ int main()
     {
         printf("\n1 Push to stck");
         printf("\n2 Delete from stck");
-        printf("\n3 Print stck");
+        printf("\n3 Print all stck");
         printf("\n4 Push to stck");
         printf("\n5 End");
         printf("\n Enter your change: ");
@@ -48,7 +48,6 @@ int main()
             }
             break;
         case 3:
-        
             if (top)
             {
                 printf("show\n");
