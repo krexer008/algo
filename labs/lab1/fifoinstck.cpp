@@ -33,6 +33,7 @@ int main()
 
     creation(&Q); // создание очереди
     int answer = 1;
+
     while (answer != 7)
     {
         system("cls");
