@@ -295,3 +295,13 @@ void queuMenu(St *p) // работа с очередью
     }
     cout << "\nProgram is end\n";
 };
+
+void correctInput(int change)
+{
+    string inp;
+    do
+    {
+        cin >> inp;
+        if (isdecimal(inp))
+    } while (/* condition */);
+}
