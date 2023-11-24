@@ -34,6 +34,8 @@ int sizeQ(St *Q);     // получение размера очереди
 
 void queuMenu(St *p); // menu очереди
 
+void correctInput(int change, int pointCount);
+
 int main()
 {
     system("cls");
@@ -53,7 +55,8 @@ int main()
         printf("\n5 Queue menu");
         printf("\n6 End");
         printf("\n Enter your change: ");
-        cin >> answer;
+
+        correctInput(answer, 7);
 
         switch (answer)
         {
@@ -242,7 +245,8 @@ void queuMenu(St *p) // работа с очередью
         printf("\n6 Clear Queue");
         printf("\n7 End");
         printf("\n Enter your change: ");
-        cin >> answer;
+
+        correctInput(answer, 8);
         switch (answer)
         {
         case 1: // добавление элемента
@@ -293,15 +297,29 @@ void queuMenu(St *p) // работа с очередью
         }
         system("pause");
     }
-    cout << "\nProgram is end\n";
+    cout<< "\nProgram is end\n";
 };
 
-void correctInput(int change)
+void correctInput(int change, int pointCount)
 {
     string inp;
-    do
+    char pC = '0'+ pointCount;
+
+    bool isCypher = false;
+    while (!isCypher)
     {
+        cout<< "\nhi\n";
+        cout<< pC;
+        cout<< "\nhi\n";
         cin >> inp;
-        if (isdecimal(inp))
-    } while (/* condition */);
+        if ((inp.size() == 0) && ((inp[0] > '0') && (inp[0] < pC)))
+        {
+            isCypher = true;
+            change = stoi(inp);
+        }
+        else
+        {
+            cout << "- Enter correct change" << endl;
+        }
+    }
 }
