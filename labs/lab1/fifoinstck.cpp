@@ -34,7 +34,7 @@ int sizeQ(St *Q);     // получение размера очереди
 
 void queuMenu(St *p); // menu очереди
 
-void correctInput(int change, int pointCount);
+void correctInput(int &change, int pointCount);
 
 int main()
 {
@@ -297,22 +297,19 @@ void queuMenu(St *p) // работа с очередью
         }
         system("pause");
     }
-    cout<< "\nProgram is end\n";
+    cout << "\nProgram is end\n";
 };
 
-void correctInput(int change, int pointCount)
+void correctInput(int &change, int pointCount)
 {
     string inp;
-    char pC = '0'+ pointCount;
+    char pC = '0' + pointCount;
 
     bool isCypher = false;
     while (!isCypher)
     {
-        cout<< "\nhi\n";
-        cout<< pC;
-        cout<< "\nhi\n";
         cin >> inp;
-        if ((inp.size() == 0) && ((inp[0] > '0') && (inp[0] < pC)))
+        if ((inp.length() == 1) && ((inp[0] > '0') && (inp[0] < pC)))
         {
             isCypher = true;
             change = stoi(inp);
