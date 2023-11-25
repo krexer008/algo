@@ -109,9 +109,6 @@ int main()
             clearSt(top);
             top = 0;
             break;
-        default:
-            printf("\n- Enter correct change");
-            break;
         }
     }
     return 0;
@@ -290,9 +287,6 @@ void queuMenu(St *p) // работа с очередью
             }
             break;
         case 7:
-            break;
-        default:
-            cout << "\nCommand not changed\n";
             break;
         }
         system("pause");
