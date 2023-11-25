@@ -6,8 +6,8 @@ using namespace std;
 // узел очереди
 struct Node
 {
-    int data;   // info
-    Node *next; // след.элемент
+    string data; // info
+    Node *next;  // след.элемент
 };
 
 struct St
@@ -28,7 +28,7 @@ void deleteEl(St *p); // удаление элемента из очереди
 void clearQ(St *p);   // очистка очереди
 bool isEmpty(St *p);  // проверка очереди на пустоту
 void showQ(St *Q);    // вывод всей очереди
-int top(St *Q);       // получение начального элемента очереди
+string top(St *Q);    // получение начального элемента очереди
 void add(St *Q);      // добавление в очередь
 int sizeQ(St *Q);     // получение размера очереди
 
@@ -198,14 +198,14 @@ void showQ(St *Q) // выдача элементов очереди
         cout << "empty Queue!";
 };
 
-int top(St *Q) // вывод начального элемента
+string top(St *Q) // вывод начального элемента
 {
     return Q->first->next->data;
 };
 
 void add(St *Q) // добавление элемента
 {
-    int value;
+    string value;
     cout << "\nValue: ";
     cin >> value;
     Q->last->next = new Node;
