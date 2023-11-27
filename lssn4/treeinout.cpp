@@ -83,14 +83,52 @@ int read_from_file(ifstream &F, multiTree *&r) // с вектором сынов
             ;
         // копирование вместе c '\0
         p->lvl = k;
+        if (k == 0) // корень
+        {
+            r = p;
+            t = r;
+            continue;
+        }
+        if (k > m) // переход на следующий уровень
+        {
+            t->sons.push_back(p);
+            p->fath = t;
+        }
+        else if (k == m) // тот же уровень
+        {
+            q = t->fath;
+            q->sons.push_back(p);
+            p->fath = q;
+        }
+        else // подъем по дереву на m-k+1 уровней
+        {
+            q = t;
+            for (i = 0; i <= m - k; i++)
+                q = q->fath;
+            // q - отец вводимой вершины p
+            q->sons.push_back(p);
+            p->fath = q;
+        }
+        m = k; // текущий уровень
+        t = p; // текущаяя вершина
     }
+    return 0;
+}
+
+void print_down(multiTree *p, int level)
+{
+    for (int i = 0; i < level; i++)
+        cout << '.';
+    cout << p->name << endl;
+    for (int i = 0; i < p->sons.size(); i++)
+        print_down(p->sons[i], level + 1);
 }
 
 void updown(Node *t) // обход сверху вниз
 {
     if (t != NULL)
     {
-        printf(" Top %d", t->key);
+        printf(" Top %d", t->name);
         updown(t->left);
         updown(t->right);
     }
@@ -102,7 +140,8 @@ void downup(Node *t) // обход сверху вниз
     {
         downup(t->left);
         downup(t->right);
-        printf(" Top %d", t->key);
+        printf(" Top ");
+        cout << t->name;
     }
 }
 void leftright(Node *t) // обход сверху вниз
@@ -110,7 +149,8 @@ void leftright(Node *t) // обход сверху вниз
     if (t != NULL)
     {
         leftright(t->left);
-        printf(" Top %d", t->key);
+        printf(" Top ");
+        cout << t->name;
         leftright(t->right);
     }
 }
