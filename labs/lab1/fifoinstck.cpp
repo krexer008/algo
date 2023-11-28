@@ -1,3 +1,11 @@
+/*
+Ямолкин Федор
+ИПС-2023
+VSCode
+
+
+*/
+
 #include <iostream>
 #include <string>
 
