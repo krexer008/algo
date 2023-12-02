@@ -45,7 +45,7 @@ void todown(Node *t)
 {
     if (t != NULL)
     {
-        //cout << "Top is " << t->key << " ";
+        // cout << "Top is " << t->key << " ";
         cout << t->key << " - ";
         todown(t->left);
         todown(t->right);
@@ -58,7 +58,7 @@ void toup(Node *t)
     {
         toup(t->left);
         toup(t->right);
-        //cout << "Top is " << t->key << " ";
+        // cout << "Top is " << t->key << " ";
         cout << t->key << " - ";
     }
 }
@@ -68,7 +68,7 @@ void toright(Node *t)
     if (t != NULL)
     {
         toright(t->left);
-        //cout << "Top is " << t->key << " ";
+        // cout << "Top is " << t->key << " ";
         cout << t->key << " - ";
         toright(t->right);
     }
@@ -90,7 +90,7 @@ void makeT(Node *t)
         }
         else
         {
-            cout << "Move to the left son of top: " << t->key<< " " << endl;
+            cout << "Move to the left son of top: " << t->key << " " << endl;
             Node *kon = new Node;
             t->left = kon;
         };
@@ -104,7 +104,7 @@ void makeT(Node *t)
         }
         else
         {
-            cout << "Move to the right son of top: " << t->key<< " " << endl;
+            cout << "Move to the right son of top: " << t->key << " " << endl;
             Node *kon = new Node;
             t->right = kon;
         };
