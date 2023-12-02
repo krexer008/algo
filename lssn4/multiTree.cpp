@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cstring>
+
 using namespace std;
 
 const int DL = 20; // max lenght
@@ -43,7 +45,6 @@ int main(int argc, char *argv[])
         cout << "\nCan not open file %s" << argv[1];
         return 1;
     }
-    Tree *root = NULL;
     read_from_file(Fin, root);
     getchar();
     print_down(root, 0);
