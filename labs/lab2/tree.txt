@@ -1,18 +1,8 @@
-zamok
-.korpus_v_sbore
-..korpus 90
-..stoika 3
-..osj 1
-.kryshka_v_sbore
-..kryshka 115
-..stoika 16
-..osj 10
-.zasov__sbore
-..hvostovik 72
-..stoika 5
-.sobirajushchaya_suvalda_v_sbore
-..sobirajushchaya_suvalda 11
-..pruzhina 1
-.suvalda 84
-.rigel 130
-.kluch 150
+Ann
+.Boris
+..Cat
+..Dora
+...Eva
+...Fred
+...Nata
+.Nina
