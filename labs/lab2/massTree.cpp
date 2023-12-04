@@ -82,66 +82,24 @@ int read_from_file(ifstream &F, Tree *&r) // с вектором сыновей
         p = new Tree;
         i = 0;
         j = k;
-        /*
-        while (p->name[i++] = buf[j++]) // при присваивании 0 в name операция кидает false
-            ;
-*/
         for (i = 0; i < len; i++, j++)
         {
-            if (buf[j] != '-') // or buf[j] != '\0')
+            if (buf[j] != '-')
             {
                 p->name[i] = buf[j];
             }
             else if (buf[j] == '-')
             {
                 j++;
-                while ((buf[j] <= '9') and (buf[j] >= '0'))
-                {
-                    p->mass *= 10;
-                    int val = 0;
-                    switch (buf[j++])
-                    {
-                    case '9':
-                        val = 9;
-                        p->mass += val;
-                        break;
-                    case '8':
-                        val = 8;
-                        p->mass += val;
-                        break;
-                    case '7':
-                        val = 7;
-                        p->mass += val;
-                        break;
-                    case '5':
-                        val = 5;
-                        p->mass += val;
-                        break;
-                    case '4':
-                        val = 4;
-                        p->mass += val;
-                        break;
-                    case '3':
-                        val = 3;
-                        p->mass += val;
-                        break;
-                    case '2':
-                        val = 2;
-                        p->mass += val;
-                        break;
-                    case '1':
-                        val = 1;
-                        p->mass += val;
-                        break;
-                    default:
-                        val = 0;
-                        p->mass += val;
-                        break;
-                    }
-                }
+                int z = len - j - 1;
+                char mas[z];
+                z = 0;
+                while (mas[z++] = buf[j++])
+                    ;
+                p->mass = std::atoi(mas);
+                p->name[i] = '\0';
+                break;
             }
-            // else if (buf[j] == '\0')
-            //     p->name[i] = '\0';
         }
         // копирование вместе с '\0’
         p->urov = k; // запись уровня
@@ -156,12 +114,14 @@ int read_from_file(ifstream &F, Tree *&r) // с вектором сыновей
         {
             t->sons.push_back(p);
             p->fath = t;
+            t->mass += p->mass;
         }
         else if (k == m) // тот же уровень
         {
             q = t->fath;
             q->sons.push_back(p);
             p->fath = q;
+            q->mass += p->mass;
         }
         else // подъем по дереву на m-k+1 уровней
         {
@@ -170,6 +130,7 @@ int read_from_file(ifstream &F, Tree *&r) // с вектором сыновей
                 q = q->fath;
             // q - отец вводимой вершины p
             q->sons.push_back(p);
+            q->mass += p->mass;
             p->fath = q;
         }
         m = k; // текущий уровень
