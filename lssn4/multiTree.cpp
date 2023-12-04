@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int DL = 20; // max lenght
+const int DL = 20; // максимальная длина
 
 // Binary Tree
 /*
@@ -70,11 +70,11 @@ int read_from_file(ifstream &F, Tree *&r) // с вектором сыновей
         p = new Tree;
         i = 0;
         j = k;
-        while (p->name[i++] = buf[j++])
+        while (p->name[i++] = buf[j++]) // при присваивании 0 в name операция кидает false
             ;
         // копирование вместе с '\0’
-        p->urov = k;
-        if (k == 0) // корень
+        p->urov = k; // запись уровня
+        if (k == 0)  // корень запишется в root
         {
             r = p;
             t = r;
