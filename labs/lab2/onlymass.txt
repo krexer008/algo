@@ -15,4 +15,4 @@ zamok
 ..pruzhina-1
 .suvalda-84
 .rigel-130
-.kluch-150
+.kluch_150

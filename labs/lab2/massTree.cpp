@@ -17,7 +17,7 @@
 
 using namespace std;
 
-const int DL = 20; // максимальная длина
+const int DL = 35; // максимальная длина
 
 // Binary Tree
 /*
@@ -31,6 +31,7 @@ struct Tree{
 // MultiBranches Tree
 struct Tree
 {
+    int mass = 0;
     char name[DL];
     int urov;
     Tree *fath;          // отец в исходном дереве
@@ -45,7 +46,6 @@ void print_down(Tree *p, int lev);
 int main(int argc, char *argv[])
 {
     Tree *root = NULL;
-
     if (argc != 2)
     {
         cout << "\nNumber parameters is wrong";
@@ -82,8 +82,67 @@ int read_from_file(ifstream &F, Tree *&r) // с вектором сыновей
         p = new Tree;
         i = 0;
         j = k;
+        /*
         while (p->name[i++] = buf[j++]) // при присваивании 0 в name операция кидает false
             ;
+*/
+        for (i = 0; i < len; i++, j++)
+        {
+            if (buf[j] != '-') // or buf[j] != '\0')
+            {
+                p->name[i] = buf[j];
+            }
+            else if (buf[j] == '-')
+            {
+                j++;
+                while ((buf[j] <= '9') and (buf[j] >= '0'))
+                {
+                    p->mass *= 10;
+                    int val = 0;
+                    switch (buf[j++])
+                    {
+                    case '9':
+                        val = 9;
+                        p->mass += val;
+                        break;
+                    case '8':
+                        val = 8;
+                        p->mass += val;
+                        break;
+                    case '7':
+                        val = 7;
+                        p->mass += val;
+                        break;
+                    case '5':
+                        val = 5;
+                        p->mass += val;
+                        break;
+                    case '4':
+                        val = 4;
+                        p->mass += val;
+                        break;
+                    case '3':
+                        val = 3;
+                        p->mass += val;
+                        break;
+                    case '2':
+                        val = 2;
+                        p->mass += val;
+                        break;
+                    case '1':
+                        val = 1;
+                        p->mass += val;
+                        break;
+                    default:
+                        val = 0;
+                        p->mass += val;
+                        break;
+                    }
+                }
+            }
+            // else if (buf[j] == '\0')
+            //     p->name[i] = '\0';
+        }
         // копирование вместе с '\0’
         p->urov = k; // запись уровня
         if (k == 0)  // корень запишется в root
@@ -122,8 +181,8 @@ int read_from_file(ifstream &F, Tree *&r) // с вектором сыновей
 void print_down(Tree *p, int level)
 {
     for (int i = 0; i < level; i++)
-        cout << '#';
-    cout << p->name << endl;
+        cout << '.';
+    cout << p->name << " " << p->mass << endl;
     for (int i = 0; i < p->sons.size(); i++)
         print_down(p->sons[i], level + 1);
 }
