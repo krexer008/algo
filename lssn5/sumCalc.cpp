@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
 using namespace std;
 
 struct Tree
@@ -8,7 +10,9 @@ struct Tree
     int w;             // вес
     Tree *fath;        // отец в исходном файле
     vector<Tree> sons; // указатели на сыновей
-} int read_from_file(ifstream &F, Tree *&r);
+};
+
+int read_from_file(ifstream &F, Tree *&r);
 // чтение из файла, формирование дерева
 
 void count_wn(Tree *p); // расчет сумм
@@ -25,8 +29,8 @@ void free_tree(Tree *&p);
 int main()
 {
 }
-// Суммирование во время прохода снизу вверх
 
+// Суммирование во время прохода снизу вверх
 void count_wn(Tree *p)
 {
     for (int i = 0; i < p->sons.size(); i++)
