@@ -1,8 +1,8 @@
 /*
  * BFS поиск в ширину
- * Поиск выхода из лабиринта
+ * Поиск выхода из лабиринта c несколькими выходами
  * Нарисуем кратчайший путь
- *
+ * Выбираем ближайший выход
  */
 
 #include <iostream>
@@ -13,7 +13,7 @@ using namespace std;
 
 const int INF = 1e9;
 
-int bfs(vector<string> &a, int startY, int startX, int finishY, int finishX)
+int bfs(vector<string> &a, int startY, int startX, vector<pair<int, int>> &finishCells)
 {
     int h = a.size();
     int w = a[0].size();
@@ -51,6 +51,16 @@ int bfs(vector<string> &a, int startY, int startX, int finishY, int finishX)
             }
         }
     }
+    // Определим сначала координаты выхода
+    // расстояние до которого является наименьшим
+    
+    auto [finishY, finishX] = finishCells[0];
+    for (auto &[y,x] : finishCells){
+        finishY = y;
+        finishX = x;
+    }
+
+
     //Рисуем кратчайший путь
     if (dist[finishY][finishX] != INF)
     {
@@ -71,8 +81,8 @@ int bfs(vector<string> &a, int startY, int startX, int finishY, int finishX)
 
 int main()
 {
-    freopen("input3.txt", "r", stdin);
-    freopen("output3.txt", "w", stdout);
+    freopen("input5.txt", "r", stdin);
+    freopen("output5.txt", "w", stdout);
 
     int h, w;
     cin >> h >> w;
@@ -80,7 +90,8 @@ int main()
     // прочитаем карту в вектор строк
     vector<string> a(h);
     int startY, startX;
-    int finishY, finishX;
+    // вектор финишных клеток
+    vector<pair<int, int>> finishCells;
 
     for (int y = 0; y < h; y++)
     {
@@ -94,13 +105,12 @@ int main()
             }
             else if (a[y][x] == 'F')
             {
-                finishY = y;
-                finishX = x;
+                finishCells.push_back({y, x});
             }
         }
     }
 
-    int stepCount = bfs(a, startY, startX, finishY, finishX);
+    int stepCount = bfs(a, startY, startX, finishCells);
 
     if (stepCount != INF)
     {

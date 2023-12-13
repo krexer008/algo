@@ -1,12 +1,12 @@
 /*
  * BFS поиск в ширину
- * Поиск выхода из лабиринта
+ * Поиск выхода из лабиринта c несколькими выходами
  * Нарисуем кратчайший путь
- *
+ * Путь должен пройти через минимальное колличество стражников
  */
 
 #include <iostream>
-#include <queue>
+#include <deque>
 #include <vector>
 #include <algorithm>
 using namespace std;
@@ -21,10 +21,10 @@ int bfs(vector<string> &a, int startY, int startX, int finishY, int finishX)
     vector<vector<int>> dist(h, vector<int>(w, INF));
     // массив from для пары координат
     vector<vector<pair<int, int>>> from(h, vector<pair<int, int>>(w, {-1, -1}));
-    queue<pair<int, int>> q; // в очереди будем хранить пары координат
+    deque<pair<int, int>> q; // в очереди будем хранить пары координат
 
-    dist[startY][startX] = 0; // записываем расстояние до стартовой клетки 0
-    q.push({startY, startX}); // помещаем начальную клетку в очередь
+    dist[startY][startX] = 0;      // записываем расстояние до стартовой клетки 0
+    q.push_back({startY, startX}); // помещаем начальную клетку в очередь
 
     // массивы смещений
     vector<int> dy = {-1, 0, 1, 0};
@@ -34,7 +34,7 @@ int bfs(vector<string> &a, int startY, int startX, int finishY, int finishX)
     while (!q.empty())
     {
         auto [y, x] = q.front();
-        q.pop();
+        q.pop_front();
 
         // проходим по массивам смещений и вычисляем координаты соседней клетки
         for (int d = 0; d < dy.size(); d++)
@@ -42,16 +42,24 @@ int bfs(vector<string> &a, int startY, int startX, int finishY, int finishX)
             int ty = y + dy[d];
             int tx = x + dx[d];
 
-            if (0 <= ty && ty < h && 0 <= tx && tx < w &&
-                a[ty][tx] != '#' && dist[ty][tx] > dist[y][x] + 1)
+            if (0 <= ty && ty < h && 0 <= tx && tx < w)
             {
-                dist[ty][tx] = dist[y][x] + 1;
-                from[ty][tx] = {y, x};
-                q.push({ty, tx});
+                if (a[ty][tx] != 'G' && dist[ty][tx] > dist[y][x] + 1)
+                {
+                    dist[ty][tx] = dist[y][x] + 1;
+                    from[ty][tx] = {y, x};
+                    q.push_back({ty, tx});
+                }
+                if (a[ty][tx] != 'G' && a[ty][tx] != '#' && dist[y][x])
+                {
+                    dist[ty][tx] = dist[y][x];
+                    from[ty][tx] = {y, x};
+                    q.push_front({ty, tx});
+                }
             }
         }
     }
-    //Рисуем кратчайший путь
+    // Рисуем кратчайший путь
     if (dist[finishY][finishX] != INF)
     {
         int y = finishY;
