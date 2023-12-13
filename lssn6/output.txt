@@ -1,0 +1,7 @@
+socks
+glasses
+shirt
+pants
+shoes
+blazer
+coat
