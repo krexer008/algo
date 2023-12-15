@@ -69,5 +69,5 @@ int main()
         for (int to : graph[v])
             if (distFromStart[v] + 1 + distFromFinish[to] == distFromStart[finish])
                 cout << v << " "
-                     << "\n"
+                     << "\n";
 }
