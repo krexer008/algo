@@ -14,7 +14,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-
+#include <algorithm>
 using namespace std;
 
 const int INF = 1e9;
@@ -23,7 +23,6 @@ vector<int> bfs(vector<vector<int>> &graph, int start)
 {
     vector<int> dist(graph.size(), INF);
     queue<int> q;
-
     dist[start] = 0;
     q.push(start);
 
@@ -67,6 +66,13 @@ int main()
 
     int start;
     cin >> start;
+    vector<int> prod(vertexCount, 0);
+    for (int i = 0; i < edgeCount; i++)
+    {
+        int a;
+        cin >> a;
+        prod.push_back(a);
+    }
 
     vector<int> dist = bfs(graph, start);
 
