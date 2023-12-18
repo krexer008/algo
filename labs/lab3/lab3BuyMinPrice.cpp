@@ -12,19 +12,17 @@
 */
 
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <queue>
 #include <algorithm>
-
 using namespace std;
 
 const int INF = 1e9;
 
-// возвращаем пару массивов
 pair<vector<int>, vector<int>> bfs(vector<vector<int>> &graph, int start)
 {
     vector<int> dist(graph.size(), INF); // массив растояний
-    vector<int> from(graph.size(), -1);  // массив from отношений
+    vector<int> from(graph.size(), -1);  // массив отношений
     queue<int> q;
 
     dist[start] = 0;
@@ -32,21 +30,20 @@ pair<vector<int>, vector<int>> bfs(vector<vector<int>> &graph, int start)
 
     while (!q.empty())
     {
-        // извлекаем вершину которую будем обрабатывать
         int v = q.front();
         q.pop();
 
-        // просматриваем всех соседей этой вершины
         for (int to : graph[v])
         {
             if (dist[to] > dist[v] + 1)
             {
-                dist[to] = dist[v] + 1; // обновляем растояние на единицу блольше до вершины
+                dist[to] = dist[v] + 1;
                 from[to] = v;
-                q.push(to); // добавляем его в очередь
+                q.push(to);
             }
         }
     }
+
     return {dist, from};
 }
 
@@ -67,7 +64,8 @@ int main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 
-    int vertexCount, edgeCount;
+    int vertexCount; // количество вершин в графе
+    int edgeCount;   // количество ребер в графе
     cin >> vertexCount >> edgeCount;
 
     vector<vector<int>> graph(vertexCount);
@@ -84,9 +82,32 @@ int main()
     int start;
     cin >> start;
 
+    freopen("prodlist.txt", "r", stdin);
+    vector<int> prod(vertexCount, 0);
+
+    int a;
+    while (cin >> a)
+    {
+        prod[a] = 1;
+    }
+
     auto [dist, from] = bfs(graph, start);
 
-    // выведем кратчайший путь до вершины 4
-    for (int v : getPath(from, 4))
+    int min = INF;
+    int indMin = -1;
+
+    // распечатаем вершину
+    for (int i = 0; i < dist.size(); i++)
+    {
+        if ((dist[i] < min) && prod[i])
+        {
+            indMin = i;
+            min = dist[indMin];
+        }
+    }
+    cout << "Near buyer number is " << indMin << "."<<endl;
+    cout<< "Min price in this market = (price + " << dist[indMin] <<" * 20%)"<< endl;
+    cout<< "Buy path is : ";
+    for (int v : getPath(from, indMin))
         cout << v << " ";
 }

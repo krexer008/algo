@@ -1,0 +1,3 @@
+Near buyer number is 8.
+Min price in this market = (price + 2 * 20%)
+Buy path is : 0 1 8 
