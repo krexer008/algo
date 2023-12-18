@@ -66,23 +66,34 @@ int main()
 
     int start;
     cin >> start;
+
+    freopen("prodlist.txt", "r", stdin);
+
     vector<int> prod(vertexCount, 0);
-    for (int i = 0; i < edgeCount; i++)
+
+    int a;
+    while (cin >> a)
     {
-        int a;
-        cin >> a;
-        prod.push_back(a);
+        cout << a << " ";
+
+        prod[a] = 1;
     }
 
     vector<int> dist = bfs(graph, start);
 
     // распечатаем полученное расстояние
-
+    cout << endl;
     for (int d : dist)
     {
         if (d != INF)
             cout << d << " ";
         else
             cout << "X";
+    }
+
+    cout << endl;
+    for (int to : prod)
+    {
+        cout << to << " ";
     }
 }
