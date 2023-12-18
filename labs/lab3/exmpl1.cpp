@@ -19,10 +19,12 @@ using namespace std;
 
 const int INF = 1e9;
 
-vector<int> bfs(vector<vector<int>> &graph, int start)
+pair<vector<int>, vector<int>> bfs(vector<vector<int>> &graph, int start)
 {
-    vector<int> dist(graph.size(), INF);
+    vector<int> dist(graph.size(), INF); // массив растояний
+    vector<int> from(graph.size(), -1);  // массив отношений
     queue<int> q;
+
     dist[start] = 0;
     q.push(start);
 
@@ -36,12 +38,13 @@ vector<int> bfs(vector<vector<int>> &graph, int start)
             if (dist[to] > dist[v] + 1)
             {
                 dist[to] = dist[v] + 1;
+                from[to] = v;
                 q.push(to);
             }
         }
     }
 
-    return dist;
+    return {dist, from};
 }
 
 int main()
@@ -68,32 +71,26 @@ int main()
     cin >> start;
 
     freopen("prodlist.txt", "r", stdin);
-
     vector<int> prod(vertexCount, 0);
 
     int a;
     while (cin >> a)
     {
-        cout << a << " ";
-
         prod[a] = 1;
     }
 
-    vector<int> dist = bfs(graph, start);
+    auto [dist, from] = bfs(graph, start);
 
-    // распечатаем полученное расстояние
-    cout << endl;
-    for (int d : dist)
-    {
-        if (d != INF)
-            cout << d << " ";
-        else
-            cout << "X";
-    }
+    int min = INF;
+    int indMin = -1;
 
-    cout << endl;
-    for (int to : prod)
+    // распечатаем вершину
+    for (int i = 0; i < dist.size(); i++)
     {
-        cout << to << " ";
+        if ((dist[i] < min) && prod[i])
+        {
+            indMin = i;
+        }
     }
+    cout << "[" << indMin << "]" << dist[indMin];
 }
