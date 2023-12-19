@@ -1,0 +1,4 @@
+Near seller number is 8.
+minimum trades count: 6.
+Min price in this market = (price + 6 * 20%)
+Buy path is : 8 10 6 7 3 5 9 
