@@ -15,6 +15,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <math.h>
 using namespace std;
 
 const int INF = 1e9;
@@ -109,9 +110,13 @@ int main()
             min = dist[indMin];
         }
     }
+
+    int mult = (pow(1.2, min) - 1) * 100;
+
     cout << "Near seller number is " << indMin + 1 << "." << endl;
-    cout << "minimum trades count: " << min << "." << endl;
-    cout << "Min price in this market = (price + " << dist[indMin] << " * 20%)" << endl;
+    cout << "Minimum trades count: " << min << "." << endl;
+    cout << "Min price in this market = (price + "
+         << mult << "%)" << endl;
     cout << "Buy path is : ";
     for (int v : getPath(from, indMin))
         cout << v + 1 << " ";
