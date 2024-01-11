@@ -1,3 +1,18 @@
+/*
+    Лабораторная №4
+
+    Ямолкин Ф.В.
+    ИПС-2023
+
+    1. Имеется массив элементов,  отсортированный по некоторому
+    полю. Методом бинарного поиска обеспечить:
+   1) нахождение заданного элемента;
+   2) вставку элемента;
+   3) удаление элемента (7).
+
+
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -45,25 +60,24 @@ int main()
         switch (answer)
         {
         case 1: // Ввести элемент
-            printf("\n1 Enter integer element: ");
+            cout << "\n1 Enter integer element: ";
             enterElement(elem);
             index = -1;
             system("pause");
             break;
         case 2: //
-            printf("\n2 Searching element in Array\n");
+            cout << "\n2 Searching element in Array" << endl;
             if (index != -2)
             {
                 index = indexFind(array, elem);
                 if (index == -1)
-                    printf("\nElement is not exist in Array\n");
+                    cout << "\nElement is not exist in Array\n";
                 else
-                    printf("\nElements Index: %d", index);
-                printf("\n");
+                    cout << "\nElements Index: " << index << endl;
             }
             else
             {
-                printf("\n New element is not Entered, please enter element\n");
+                cout << "\n New element is not Entered, please enter element\n";
                 index = -2;
             }
             system("pause");
@@ -71,15 +85,15 @@ int main()
         case 3:
             if (index != -2)
             {
-                printf("\n3 Pushing element to Array\n");
+                cout << "\n3 Pushing element to Array\n";
                 pushElementToArray(array, elem);
             }
             else
-                printf("\n New element is not Entered, please enter element\n");
+                cout << "\n New element is not Entered, please enter element\n";
             system("pause");
             break;
         case 4:
-            printf("\n4 Deleting element from Array\n");
+            cout << "\n4 Deleting element from Array\n";
             if (index > -2)
                 deleteElementfromArray(array, elem);
             index = -2;
@@ -91,12 +105,12 @@ int main()
             system("pause");
             break;
         case 6:
-            printf("\n6 Save Array to file\n");
+            cout << "\n6 Save Array to file\n";
             saveArray(array);
             system("pause");
             break;
         case 7:
-            printf("\n6 End program\n");
+            cout << "\n6 End program\n";
             answer = 7;
             break;
         }
@@ -120,7 +134,7 @@ void saveArray(vector<int> array)
         out.close();
     }
     else
-        printf("Array is empty");
+        cout << "Array is empty";
     void printArray(vector<int> array);
 }
 
@@ -132,7 +146,7 @@ void printArray(vector<int> array)
             cout << array[i] << ", ";
         }
     else
-        printf("Array is empty");
+        cout << "Array is empty";
 }
 
 void deleteElementfromArray(vector<int> &array, int elem) // Delete element from array
@@ -140,7 +154,7 @@ void deleteElementfromArray(vector<int> &array, int elem) // Delete element from
     int ind = indexFind(array, elem);
     if (ind < 0)
     {
-        printf("\n2 Element is not exist in Array \n");
+        cout << "\n2 Element is not exist in Array\n";
     }
     else
     {
@@ -223,7 +237,7 @@ void enterElement(int &elem) // enter new element
     while (!is_number(s) && stoi(s) < 0)
     {
         system("cls");
-        printf("\nEnter integer element: ");
+        cout << "\nEnter integer element: ";
         cin >> s;
     };
     elem = stoi(s);
